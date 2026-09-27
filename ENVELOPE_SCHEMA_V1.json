@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/briar-courier/envelope-v1.schema.json",
+  "title": "Briar Courier Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "message_id",
+    "recipient_key_id",
+    "ephemeral_public_key_jwk",
+    "hkdf_salt_b64u",
+    "aes_gcm_nonce_b64u",
+    "ciphertext_b64u"
+  ],
+  "properties": {
+    "schema": {
+      "const": "briar-courier-envelope-v1"
+    },
+    "message_id": {
+      "type": "string",
+      "minLength": 22,
+      "maxLength": 128
+    },
+    "recipient_key_id": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 128
+    },
+    "ephemeral_public_key_jwk": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "kty",
+        "crv",
+        "x",
+        "y"
+      ],
+      "properties": {
+        "kty": {
+          "const": "EC"
+        },
+        "crv": {
+          "const": "P-256"
+        },
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        }
+      }
+    },
+    "hkdf_salt_b64u": {
+      "type": "string",
+      "minLength": 16
+    },
+    "aes_gcm_nonce_b64u": {
+      "type": "string",
+      "minLength": 12
+    },
+    "ciphertext_b64u": {
+      "type": "string",
+      "minLength": 16
+    }
+  }
+}
